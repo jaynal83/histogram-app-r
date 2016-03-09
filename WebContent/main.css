@@ -1,0 +1,251 @@
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+
+.navbar-fixed-top .brand-shadow {
+  -moz-transition: all 0.2s linear 0s;
+  color: #000000;
+  float: right;
+  font-weight: bold;
+  margin-left: 20px;
+  padding-left: 0;
+  padding-right: 0;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.125);  
+}
+
+#logo {
+  background: url("../images/revo-logo-small.png") no-repeat scroll left 8px transparent;
+  display: block;
+  float: left;
+  padding-left: 32px;
+  margin: 0;
+}
+
+.navbar-fixed-top .brand-logo {  
+  background: url("../images/revo-logo-small.png") no-repeat scroll right center transparent;
+  border-radius: 2px 2px 2px 2px;
+  box-shadow: 0 0 5px orange;
+  padding-right: 24px;
+  margin-right: 5px;
+}
+
+/* -- Misc ----------------------------------------------------------------- */
+
+strong.large {
+  font-size: 14px;
+  line-height: 18px;
+}
+
+h3.top-offset { 
+  margin-top:28px;
+}
+
+p.message {
+  color: #777777;
+  font-size: 1.2em;
+  margin: 1em 0;
+  line-height: 20px;
+}
+
+span.sib {
+ margin: 2px 0;
+}
+
+.preview {
+    float: left;
+    margin-bottom: 18px;
+    margin-right: 40px;
+}
+
+/* -- New window icon ------------------------------------------------------ */
+span.ext {  
+  background: url("../images/extlink.png") right center no-repeat;
+  padding-right: 12px;
+}
+
+.ext-pages a:hover {  
+  background: url("../images/extlink.png") right center no-repeat;
+  padding-right: 12px;
+}
+
+.ext-void a:hover { 
+  background: none;
+  padding-right: 0;
+}
+
+/* -- Loading indicator ---------------------------------------------------- */
+.loading {
+  background: url("C:/git-hub/git-projects/revolution/docs/img") repeat-x scroll center bottom #FFFFFF;
+  height: 17px;
+  width: 17px;
+  margin: auto;
+  padding-top: 120px;
+}
+
+/* -- Table od Contents (toc) ---------------------------------------------- */
+.toc {
+  margin-left: 0;
+  margin-bottom: 0;
+  list-style: none outside none;  
+}
+
+.toc > li > a {  
+  padding: 3px 0;
+  margin-left: -5px;
+}
+
+.toc > li > a, .toc .nav-header {  
+  margin-right: -20px; 
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.toc > li > a {
+  display: block;
+}
+
+.toc > li > a:hover {  
+  text-decoration: none;
+}
+
+.toc-header h2 {
+  color: #999999;
+  display: block;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 18px;  
+  margin-left: -5px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;  
+}
+
+.toc small {
+  display: none;
+}
+
+ul ul {  
+  padding-left: 15px;
+}
+
+/* -- Paragraphs and paragraph-like blocks ---------------------------------- */
+pre.code, pre.terminal, pre.cmd {
+  margin: 1.2em 0;
+}
+
+/* -- Code and Teminal ----------------------------------------------------- */
+
+pre.code, #doc pre.prettyprint {  
+  background: #FCFBFA;
+  border: 1px solid #EFEEED;
+  border-left-width: 5px;
+}
+
+pre.code, pre.terminal, pre.cmd, #doc pre.prettyprint {
+    /*overflow-x: auto;*/
+    overflow: auto;
+    max-height: 600px;
+    padding: 0.3em 0.6em;
+    _width: 99%;
+}
+
+pre.terminal, pre.cmd {  
+  background: #F0EFFC;
+  border: 1px solid #D0CBFB;
+  border-left: 5px solid #D0CBFB;
+}
+
+/* 
+ * Don't reduce the font size of <code>/<kbd>/<samp> elements inside <pre>
+ * blocks. 
+ */
+pre code, pre kbd, pre samp { font-size: 100%; }
+
+/* -- Example Canvas ------------------------------------------------------- */
+.example {
+  -moz-border-radius: 4px 4px 4px 4px;
+  -webkit-border-radius: 4px 4px 4px 4px;
+  *border-radius: 4px 4px 4px 4px;
+  
+  -moz-box-shadow: 0 0 5px #BFBFBF;
+  -webkit-box-shadow: 0 0 5px #BFBFBF;
+  box-shadow: 0 0 5px #BFBFBF;
+
+  padding: 1em;
+  margin-bottom: 10px;
+}
+
+.sidebox {  
+  border: 1px solid #DDDDDD;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  padding-bottom: 1px;
+}
+
+.sidebox .hd {
+  background-color: #fbfbfb;
+  background-image: -moz-linear-gradient(top, #ffffff, #f5f5f5);
+  background-image: -ms-linear-gradient(top, #ffffff, #f5f5f5);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f5f5f5));
+  background-image: -webkit-linear-gradient(top, #ffffff, #f5f5f5);
+  background-image: -o-linear-gradient(top, #ffffff, #f5f5f5);
+  background-image: linear-gradient(top, #ffffff, #f5f5f5);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f5f5f5', GradientType=0);   
+  -moz-border-radius: 3px 3px 0 0;
+  -webkit-border-radius: 3px 3px 0 0;*
+  border-radius: 3px 3px 0 0;
+  padding: 4px 7px 5px;
+  border-bottom: 1px solid #DDDDDD;  
+}
+
+.sidebox .bd {  
+  -moz-border-radius: 0 0 3px 3px;
+  -webkit-border-radius: 0 0 3px 3px;
+  border-radius: 0 0 3px 3px;  
+  padding: 10px 8px 10px;
+}
+
+.sidebox .hd h2 {
+  line-height: normal;
+  font-weight: bold;
+  font-size: 107.692%;
+  margin: 0;  
+  color: #999999;
+}
+
+/* -- The input and results container areas in the examples  --------------- */
+#input-canvas {
+  float: left; 
+}
+
+#results-canvas {  
+  float:right;
+}
+
+#example-canvas {
+  height: auto;
+  overflow: auto;
+  width: auto;
+}
+
+/* -- Backdrop Mask for examples ------------------------------------------- */
+.examples-backdrop, .examples-backdrop.fade.in {
+    opacity: 0.5;
+}
+
+.examples-backdrop {
+    background-color: #FFFFFF;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1040;
+}
+
+/* -- Event Console launch button ------------------------------------------ */
+.event-console-launch {
+  list-style: none;
+  margin: 6px 10px;
+}

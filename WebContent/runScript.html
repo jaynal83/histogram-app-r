@@ -1,0 +1,146 @@
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Demo WebApp using DeployR</title>
+   </head>
+   <body>
+      <!DOCTYPE html>
+      <html lang="en">
+         <head>
+            <meta charset="utf-8">
+            <title>Examples: Simple Script execution</title>
+            <link rel="stylesheet" href="bootstrap-combined.min.css">
+            <link rel="stylesheet" href="main.css">
+            <link rel="stylesheet" href="prettify-min.css">
+         </head>
+         <body>
+            <div class="container">
+               <div class="row-fluid">
+                  <div class="page-header">
+                     <div class="muted pull-right">
+                     </div>
+                     <h1>Examples: Simple Script Execution - Histogram Demo</h1>
+                  </div>
+               </div>
+               <!--<a href="#toc" class="jump">Jump to Table of Contents</a>-->
+               <div id= "doc" class="row-fluid">
+                  <div class="span9">
+                     <div class="revo-content">
+                        <!-- custom styles for this example -->
+                        <style>  
+                           #results-canvas .bd{
+                           height: 300px;      
+                           }
+                           #input-canvas input {
+                           margin-top: -10px;
+                           }
+                        </style>
+                        <div class="well">
+                           <p>
+                            This sample includes one predefined R script called <code>
+							histogramDemo</code>. The script takes one input and produces a
+							histogram. Once the user selects a value from the drop-down and clicks Execute, the
+							JavaScript API calls the R script to generate that selected number of random values
+							and produce the corresponding histogram.
+                           </p>
+                           <p>
+                              This sample demonstrates a use of DeployR's JavaScript UI utilities (deployR)
+                              interacting with the DeployR's RESTful API interface to R. The R script <code>
+                              histogramDemo</code> was created and stored in the DeployR management 
+                              console.
+                           </p>
+                        </div>
+                   <div class="example">
+                     <div id="example-canvas">
+                        <div id="input-canvas" class="span6">
+                           <div class="sidebox">
+                              <div class="hd">
+                                 <h2 id="generate-histogram">Generate Histogram</h2>
+                              </div>
+                              <div class="bd">
+                                 <label for="random">Random values:</label>
+                                 <select id="random">
+                                    <option value="10">10</option>
+                                    <option value="100">100</option>
+                                    <option value="1000">1000</option>
+                                 </select>
+                                 <input id="exe" type="button" class="btn btn-primary" title="Generate Histogram" value="Execute">
+                              </div>
+                           </div>
+                        </div>
+                        <div id="results-canvas" class="span6">
+                           <div class="sidebox">
+                              <div class="hd">
+                                 <h2 id="results">Results</h2>
+                              </div>
+                              <div class="bd">
+                                 <div id="area"><p id="demo" align="center"> </p></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                        <h3 id="r-script">R Script</h3>
+                        <p>
+                           The R script <code>histogramDemo</code> is defined below:
+                        </p>
+                        <pre class="code prettyprint">
+#generate a vector of random numbers, using object &quot;input_randomNum&quot; to
+#indicate how many values to create
+ 
+require(RevoScriptTools) 
+revoInput(&#x27;{ &quot;name&quot;: &quot;input_randomNum&quot;, &quot;label&quot;: &quot;Sample size&quot;, &quot;render&quot;: &quot;integer&quot;, &quot;default&quot;: 100, &quot;min&quot;: 10, &quot;max&quot;: 10000 }&#x27;)
+
+x&lt;-rnorm(input_randomNum)
+ 
+#generate a histogram of those random numbers, and write
+#the histogram to a file
+png(filename=&quot;histogram.png&quot;)
+hist(x, main=&quot;Histogram of Random Values&quot;, xlab=&quot;Random Values&quot;)
+dev.off()</pre>
+                     </div>
+                  </div>
+               </div>
+               <!-- /row-fluid -->
+               <hr>
+            </div>
+            <!--/.fluid-container-->
+            <script src="prettify-min.js"></script>
+            <script>prettyPrint();</script>
+            <script src="deployr.js"></script>
+            <script src="require.js"></script>
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>		
+            <script>
+               /*
+                 * Run example.
+                 */
+                 function run(config) {
+                  	deployr.configure( { 
+                  		logging: false, 
+                  		host: config.endpoint, 
+                  		cors: config.cors 
+                  	});
+		
+                  	deployr.io('/r/repository/script/execute')
+                  	  .data({ author: 'cathal', directory: 'root', filename: 'histogramDemo', inputs:  '{\"input_randomNum\":{\"type\":\"primitive\",\"value\":1000}}' })
+                  	  .end(function(res) {
+                  		  //
+                  		  // 3. Retrieve the analytics Web service execution results.
+                  		  //
+                  		  var exec = res.get('execution');
+                  		  var workspace = res.get('workspace');
+                  		  var console = exec.console;
+                  		  var plots = exec.results;
+                 		  var files = exec.artifacts;
+                  		  var objects = workspace.objects;
+
+                  		document.getElementById('demo').innerHTML ='<img alt="plot" src="' + files[0].url + '" width="400">'; 
+                  		 
+                  	});  
+                   }
+                 // -- load configuration and run example --
+                 $.getJSON('config.json').done(function(config) { run(config); });      
+            </script>
+         </body>
+      </html>
