@@ -60,12 +60,12 @@
                               </div>
                               <div class="bd">
                                  <label for="random">Random values:</label>
-                                 <select id="random">
+                                 <select id="random" name="input-list">
                                     <option value="10">10</option>
                                     <option value="100">100</option>
                                     <option value="1000">1000</option>
                                  </select>
-                                 <input id="exe" type="button" class="btn btn-primary" title="Generate Histogram" value="Execute">
+                                 <input id="exe" type="button" class="btn btn-primary" title="Generate Histogram" value="Execute" onclick="run()"/>
                               </div>
                            </div>
                         </div>
@@ -112,35 +112,49 @@ dev.off()</pre>
             <script src="require.js"></script>
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>		
             <script>
-               /*
-                 * Run example.
-                 */
-                 function run(config) {
-                  	deployr.configure( { 
-                  		logging: false, 
-                  		host: config.endpoint, 
-                  		cors: config.cors 
-                  	});
-		
-                  	deployr.io('/r/repository/script/execute')
-                  	  .data({ author: 'cathal', directory: 'root', filename: 'histogramDemo', inputs:  '{\"input_randomNum\":{\"type\":\"primitive\",\"value\":1000}}' })
-                  	  .end(function(res) {
-                  		  //
-                  		  // 3. Retrieve the analytics Web service execution results.
-                  		  //
-                  		  var exec = res.get('execution');
-                  		  var workspace = res.get('workspace');
-                  		  var console = exec.console;
-                  		  var plots = exec.results;
-                 		  var files = exec.artifacts;
-                  		  var objects = workspace.objects;
-
-                  		document.getElementById('demo').innerHTML ='<img alt="plot" src="' + files[0].url + '" width="400">'; 
-                  		 
-                  	});  
-                   }
-                 // -- load configuration and run example --
-                 $.getJSON('config.json').done(function(config) { run(config); });      
+            	function run() {
+		         	// function to access the the drop down list value that was selected by user
+		            function getValue(listName) {
+		               var listVal = document.getElementsByName(listName)[0];
+		               var value = listVal.options[listVal.selectedIndex].text
+		               console.log("value: " + value)
+		            // call the list value as input for histogram size  
+		               input = '{\"input_randomNum\":{\"type\":\"primitive\",\"value\":' + value + '}}'
+		               return input;
+		            }
+	            	/*
+	                 * Run example.
+	                 */
+	                 function run(config) {
+	                  	deployr.configure( { 
+	                  		logging: false, 
+	                  		host: config.endpoint, 
+	                  		cors: config.cors 
+	                  	});
+						
+	                  	input = getValue('input-list');
+	                  	console.log("input: " + input)
+	              
+	                  	deployr.io('/r/repository/script/execute')
+	                  	  .data({ author: 'cathal', directory: 'root', filename: 'histogramDemo', inputs:  input })
+	                  	  .end(function(res) {
+	                  		  //
+	                  		  // 3. Retrieve the analytics Web service execution results.
+	                  		  //
+	                  		  var exec = res.get('execution');
+	                  		  var workspace = res.get('workspace');
+	                  		  var console = exec.console;
+	                  		  var plots = exec.results;
+	                 		  var files = exec.artifacts;
+	                  		  var objects = workspace.objects;
+	
+	                  		document.getElementById('demo').innerHTML ='<img alt="plot" src="' + files[0].url + '" width="400">'; 
+	                  		 
+	                  	});  
+	                   }
+	                 // -- load configuration and run example --
+	                 $.getJSON('config.json').done(function(config) { run(config); });
+	             }
             </script>
          </body>
       </html>
